@@ -38,6 +38,8 @@ count(ds, sex)
 ## Data Explorer: Histograms
 
 ds %>% select(condition, gazex_std:posy_speed) %>% plot_histogram()
+# Actually it is the same as without choosing "condition" column:
+ds %>% select(gazex_std:posy_speed) %>% plot_histogram()
 
 ## Data Explorer: Density plots
 
@@ -136,4 +138,6 @@ pred_x
 pred_y <- colnames(select(ds, posx_mean:eyey_speed)) %>% keep(str_detect, "y_")
 pred_y
 pred_x_by_y <- map2(pred_x, pred_y, ~ two_var_scatter(ds, .x, .y))
+# cannot use the following syntax, because pred_x is a vector, and we only need one from the vector each time.
+pred_x_by_y <- two_var_scatter(ds, pred_x, pred_y)
 pred_x_by_y
